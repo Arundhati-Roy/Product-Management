@@ -35,6 +35,7 @@ namespace Product_Management_Review
             //DisplayTop(t);
             //RetieveTopForGivenPID(t);
             GetCountForPID(t);
+            DisplayAllEmp(t);
         }
         public static void DisplayEmp(DataTable emp)
         {
@@ -70,7 +71,6 @@ namespace Product_Management_Review
                 Console.WriteLine(n);
             }
         }
-
         public static void GetCountForPID(DataTable emp)
         {
             var empName = (from employee in emp.AsEnumerable()
@@ -85,6 +85,26 @@ namespace Product_Management_Review
                 Console.WriteLine(n);
             }
         }
+        public static void SkipTop(DataTable emp)
+        {
+            var empName = (from employee in emp.AsEnumerable()
+                           orderby employee.Field<string>("Rating") descending
+                           select employee.Field<string>("isLike")).Skip(3);
+            foreach (string n in empName)
+            {
+                Console.WriteLine(n);
+            }
+        }
+        public static void DisplayAllEmp(DataTable emp)
+        {
+            var empName = from employee in emp.AsEnumerable()
+                          select employee;
+            foreach (var n in empName)
+            {
+                Console.WriteLine((string)n[0]+" "+n[1]+" "+n[2]+" "+n[3]);
+            }
+        }
+
     }
 }
 
