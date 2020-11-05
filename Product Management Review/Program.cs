@@ -9,18 +9,21 @@ namespace Product_Management_Review
         {
             Console.WriteLine("Welcome to Linq Demo");
             DataTable t = new DataTable();
-            t.Columns.Add("ID");
-            t.Columns.Add("PName");
+            t.Columns.Add("ProdID");
+            t.Columns.Add("UserID");
+            t.Columns.Add("Rating");
+            //t.Columns.Add("Review");
+            t.Columns.Add("isLike");
 
-            t.Rows.Add("1", "Chai");
-            t.Rows.Add("2", "Coffee");
-            t.Rows.Add("3", "Latte");
+            t.Rows.Add("1","U1", "5","Chai");
+            t.Rows.Add("2", "U2","4","Coffee");
+            t.Rows.Add("3", "U3","6","Latte");
             DisplayEmp(t);
         }
         public static void DisplayEmp(DataTable emp)
         {
             var empName = from employee in emp.AsEnumerable()
-                          select employee.Field<string>("PName");
+                          select employee.Field<string>("isLike");
             foreach (string n in empName)
             {
                 Console.WriteLine(n);
