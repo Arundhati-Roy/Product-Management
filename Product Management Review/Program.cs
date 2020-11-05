@@ -36,6 +36,7 @@ namespace Product_Management_Review
             //RetieveTopForGivenPID(t);
             GetCountForPID(t);
             DisplayAllEmp(t);
+            GetAvgForPId(t);
         }
         public static void DisplayEmp(DataTable emp)
         {
@@ -102,6 +103,21 @@ namespace Product_Management_Review
             foreach (var n in empName)
             {
                 Console.WriteLine((string)n[0]+" "+n[1]+" "+n[2]+" "+n[3]);
+            }
+        }
+        public static void GetAvgForPId(DataTable emp)
+        {
+            var empName = (from employee in emp.AsEnumerable()
+                           group employee by employee.Field<string>("ProdId") into g
+                           select new
+                           {
+                               ProdId = g.Key,
+                               AvgRating = (from l in g.AsEnumerable() 
+                                            select  Convert.ToInt32(l.Field<string>("Rating"))).Average()
+                           });
+            foreach (var n in empName)
+            {
+                Console.WriteLine(n);
             }
         }
 
