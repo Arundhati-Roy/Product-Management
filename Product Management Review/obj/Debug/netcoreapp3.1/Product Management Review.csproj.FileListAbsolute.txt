@@ -1,0 +1,12 @@
+C:\Users\priyadarshini roy\source\repos\Product Management Review\Product Management Review\bin\Debug\netcoreapp3.1\Product Management Review.exe
+C:\Users\priyadarshini roy\source\repos\Product Management Review\Product Management Review\bin\Debug\netcoreapp3.1\Product Management Review.deps.json
+C:\Users\priyadarshini roy\source\repos\Product Management Review\Product Management Review\bin\Debug\netcoreapp3.1\Product Management Review.runtimeconfig.json
+C:\Users\priyadarshini roy\source\repos\Product Management Review\Product Management Review\bin\Debug\netcoreapp3.1\Product Management Review.runtimeconfig.dev.json
+C:\Users\priyadarshini roy\source\repos\Product Management Review\Product Management Review\bin\Debug\netcoreapp3.1\Product Management Review.dll
+C:\Users\priyadarshini roy\source\repos\Product Management Review\Product Management Review\bin\Debug\netcoreapp3.1\Product Management Review.pdb
+C:\Users\priyadarshini roy\source\repos\Product Management Review\Product Management Review\obj\Debug\netcoreapp3.1\Product Management Review.AssemblyInfoInputs.cache
+C:\Users\priyadarshini roy\source\repos\Product Management Review\Product Management Review\obj\Debug\netcoreapp3.1\Product Management Review.AssemblyInfo.cs
+C:\Users\priyadarshini roy\source\repos\Product Management Review\Product Management Review\obj\Debug\netcoreapp3.1\Product Management Review.csproj.CoreCompileInputs.cache
+C:\Users\priyadarshini roy\source\repos\Product Management Review\Product Management Review\obj\Debug\netcoreapp3.1\Product Management Review.dll
+C:\Users\priyadarshini roy\source\repos\Product Management Review\Product Management Review\obj\Debug\netcoreapp3.1\Product Management Review.pdb
+C:\Users\priyadarshini roy\source\repos\Product Management Review\Product Management Review\obj\Debug\netcoreapp3.1\Product Management Review.genruntimeconfig.cache
