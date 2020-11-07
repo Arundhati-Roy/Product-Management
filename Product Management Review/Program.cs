@@ -2,7 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Product_Management_Review
 {
@@ -34,9 +38,64 @@ namespace Product_Management_Review
             //DisplayEmp(t);
             //DisplayTop(t);
             //RetieveTopForGivenPID(t);
-            GetCountForPID(t);
-            DisplayAllEmp(t);
-            GetAvgForPId(t);
+            //GetCountForPID(t);
+            //DisplayAllEmp(t);
+            //GetAvgForPId(t);
+            //GetCountForPIDUsingLambda(t);
+            //tpl();
+            //DisplayEmpWithTPL(t);
+
+            //string[] words = CreateWordArray(@"https://en.wikipedia.org/wiki/Blog");
+
+            #region ParallelTasks
+            Parallel.Invoke(
+                () =>
+            {
+                Console.WriteLine("Begin first task...");
+                DisplayEmpWithTPL(t);
+            },
+            () =>
+            {
+                Console.WriteLine("Begin second task...");
+                GetCountForPID(t);
+            }, //Close second action
+            () =>
+            {
+                Console.WriteLine("Begin 3rd task...");
+                GetAvgForPId(t);
+            }//close third action
+            );//close parallel.invoke
+            #endregion
+
+        }
+        public static string[] CreateWordArray(string url)
+        {
+            Console.WriteLine($"Retrieving from {url}");
+
+            //Dowload a web page easily
+            string blog = new WebClient().DownloadString(url);
+
+            //Separate string into an array, removing some punctuation
+            return blog.Split(
+                new char[] { ' ', '\u000A', ',', ';', ':', '.', '-', '_', '/' },
+                StringSplitOptions.RemoveEmptyEntries);
+        }
+        public static void tpl()
+        {
+            Console.WriteLine("Using C# for loop");
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.WriteLine(" i= {0},thread= {1}",
+                    i, Thread.CurrentThread.ManagedThreadId);
+                Thread.Sleep(10);
+            }
+            Console.WriteLine("Using Parallel for\n");
+            Parallel.For(0, 10, i =>
+              {
+                  Console.WriteLine(" i= {0},thread= {1}",
+                      i, Thread.CurrentThread.ManagedThreadId);
+                  Thread.Sleep(10);
+              });
         }
         public static void DisplayEmp(DataTable emp)
         {
@@ -74,6 +133,7 @@ namespace Product_Management_Review
         }
         public static void GetCountForPID(DataTable emp)
         {
+            Console.WriteLine("Get count");
             var empName = (from employee in emp.AsEnumerable()
                            group employee by employee.Field<string>("ProdId") into g
                            select new
@@ -86,6 +146,19 @@ namespace Product_Management_Review
                 Console.WriteLine(n);
             }
         }
+        /*        public static void GetCountForPIDUsingLambda(DataTable emp)
+                {
+                    var empName = emp.AsEnumerable().GroupBy(g=> emp.Columns["ProdId"]).Select(x=>new
+                                   {
+                                       ProdId = x.Key,
+                                       Count = x.Count()
+                                   });
+                    foreach (var n in empName)
+                    {
+                        Console.WriteLine(n);
+                    }
+                }
+        */
         public static void SkipTop(DataTable emp)
         {
             var empName = (from employee in emp.AsEnumerable()
@@ -102,23 +175,43 @@ namespace Product_Management_Review
                           select employee;
             foreach (var n in empName)
             {
-                Console.WriteLine((string)n[0]+" "+n[1]+" "+n[2]+" "+n[3]);
+                Console.WriteLine((string)n[0] + " " + n[1] + " " + n[2] + " " + n[3]);
             }
         }
         public static void GetAvgForPId(DataTable emp)
         {
+            Console.WriteLine("Get average rating");
             var empName = (from employee in emp.AsEnumerable()
                            group employee by employee.Field<string>("ProdId") into g
                            select new
                            {
                                ProdId = g.Key,
-                               AvgRating = (from l in g.AsEnumerable() 
-                                            select  Convert.ToInt32(l.Field<string>("Rating"))).Average()
+                               AvgRating = (from l in g.AsEnumerable()
+                                            select Convert.ToInt32(l.Field<string>("Rating"))).Average()
                            });
             foreach (var n in empName)
             {
                 Console.WriteLine(n);
             }
+        }
+        public static void DisplayEmpWithTPL(DataTable emp)
+        {
+            Console.WriteLine("Display prod with tpl");
+            var empName = from employee in emp.AsEnumerable()
+                          select employee.Field<string>("ProdId");
+            /*foreach (string i in empName)
+            {
+                Console.WriteLine(" i= {0},thread= {1}",
+                                    i, Thread.CurrentThread.ManagedThreadId);
+                Thread.Sleep(10);
+            }
+            Console.WriteLine("Using Parallel for\n");*/
+            Parallel.ForEach(empName, i =>
+            {
+                Console.WriteLine(" i= {0},thread= {1}",
+                    i, Thread.CurrentThread.ManagedThreadId);
+                Thread.Sleep(10);
+            });
         }
 
     }
